@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Register — Primary Care Symposium — OGG Edu</title>
+<meta name="description" content="Register for the Annual GI Update for Primary Care Providers, February 6, 2027 at Grandview Yard, Columbus, Ohio. Registration is free." />
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  .reg-card { max-width: 620px; margin: 0 auto; background: #fff; border: 1px solid var(--border); border-top: 4px solid var(--blue); border-radius: 10px; padding: 32px; box-shadow: 0 4px 14px rgba(31,63,87,0.08); }
+  .reg-card label { display: block; font-weight: 700; color: var(--navy); font-size: 0.92rem; margin: 18px 0 6px; }
+  .reg-card input[type=text], .reg-card input[type=email], .reg-card select { width: 100%; padding: 11px 12px; border: 1px solid var(--border); border-radius: 6px; font: inherit; color: var(--ink); background: #fff; }
+  .reg-card input:focus, .reg-card select:focus { outline: 2px solid var(--blue-light); border-color: var(--blue); }
+  .reg-card .btn { margin-top: 26px; border: 0; cursor: pointer; font: inherit; width: 100%; }
+  .hp { position: absolute; left: -9999px; }
+  #other-wrap { display: none; }
+  #reg-msg { margin-top: 16px; text-align: center; font-weight: 600; }
+  #reg-msg.ok { color: #2e7d4f; }
+  #reg-msg.err { color: #b3402f; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="index.html" style="text-decoration:none;">
+      <img src="assets/logo.svg" alt="OGG Edu logo" />
+      <span class="brand-text">
+        <span class="org-name">OGG Edu</span>
+        <span class="org-tagline">GI &amp; Liver Disease Education</span>
+      </span>
+    </a>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="journal-clubs.html">Journal Clubs</a></li>
+        <li><a href="symposium.html" class="active">Primary Care Symposium</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div class="page-header">
+  <div class="container">
+    <span class="eyebrow">Annual GI Update</span>
+    <h1>Register</h1>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <p class="text-center" style="max-width:620px;margin:0 auto 28px;font-size:1.05rem;">
+      <strong>GI Update for Primary Care Providers</strong><br />
+      February 6, 2027 &middot; Grandview Yard, Columbus, Ohio &middot; 7:30 AM Breakfast &middot; 4 hours of CME<br />
+      Registration is free for attendees.
+    </p>
+
+    <div class="reg-card">
+      <form id="reg-form">
+        <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" />
+
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="Name" required autocomplete="name" />
+
+        <label for="degree">Degree</label>
+        <select id="degree" name="Degree" required>
+          <option value="" disabled selected>Select your degree</option>
+          <option>MD</option>
+          <option>DO</option>
+          <option>NP</option>
+          <option>APP</option>
+          <option>Other</option>
+        </select>
+
+        <div id="other-wrap">
+          <label for="degree-other">Please specify</label>
+          <input type="text" id="degree-other" name="Degree (Other)" />
+        </div>
+
+        <label for="practice">Practice System</label>
+        <input type="text" id="practice" name="Practice System" required />
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" required autocomplete="email" />
+
+        <button type="submit" class="btn btn-solid" id="submit-btn">Register</button>
+        <div id="reg-msg" role="status"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <a class="brand" href="index.html" style="text-decoration:none;">
+        <img src="assets/logo.svg" alt="OGG Edu logo" style="width:36px;height:36px;" />
+        <span class="brand-text"><span class="org-name">OGG Edu</span></span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="journal-clubs.html">Journal Clubs</a></li>
+        <li><a href="symposium.html">Primary Care Symposium</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 OGG Edu. A 501(c)(3) nonprofit organization.</span>
+      <span>info@oggedu.org</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Paste your deployed Google Apps Script web app URL here (see setup steps)
+  const SCRIPT_URL = 'PASTE_APPS_SCRIPT_WEB_APP_URL_HERE';
+  const form = document.getElementById('reg-form');
+  const degree = document.getElementById('degree');
+  const otherWrap = document.getElementById('other-wrap');
+  const otherInput = document.getElementById('degree-other');
+  const msg = document.getElementById('reg-msg');
+  const btn = document.getElementById('submit-btn');
+
+  degree.addEventListener('change', () => {
+    const isOther = degree.value === 'Other';
+    otherWrap.style.display = isOther ? 'block' : 'none';
+    otherInput.required = isOther;
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    btn.disabled = true; btn.textContent = 'Submitting...';
+    msg.className = ''; msg.textContent = '';
+    try {
+      if (SCRIPT_URL.indexOf('PASTE_') === 0) throw new Error('not configured');
+      // no-cors: the browser can't read Apps Script's reply, but the data is delivered
+      await fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: new URLSearchParams(new FormData(form))
+      });
+      form.reset(); otherWrap.style.display = 'none';
+      msg.className = 'ok';
+      msg.textContent = "Thank you! Your registration has been received. We'll be in touch with more details.";
+      btn.textContent = 'Registered';
+    } catch (err) {
+      msg.className = 'err';
+      msg.textContent = 'Something went wrong. Please try again or email info@oggedu.org.';
+      btn.disabled = false; btn.textContent = 'Register';
+    }
+  });
+</script>
+
+</body>
+</html>
